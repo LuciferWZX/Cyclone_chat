@@ -1,4 +1,5 @@
 import { Column, Entity, PrimaryColumn, Timestamp } from 'typeorm';
+import { UserStatus } from '../interfaces/enum';
 
 @Entity({ name: 'user_tb' })
 export class User {
@@ -25,7 +26,7 @@ export class User {
   @Column({ type: 'int', name: 'u_sex' })
   sex: number;
   @Column({ type: 'int', name: 'u_status' })
-  status: number;
+  status: UserStatus;
   @Column({ type: 'int', name: 'is_received_request' })
   isReceivedRequest: number;
   @Column({ type: 'varchar', length: 50, name: 'u_email' })

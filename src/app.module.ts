@@ -11,6 +11,7 @@ import { LoggerMiddleware } from './middlewares/logger.middleware';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RedisModule } from 'nestjs-redis';
 import redisConfig from './redis/redis.config';
+import { VerifyMiddleware } from './middlewares/verify.middleware';
 
 @Module({
   imports: [
@@ -24,6 +25,19 @@ import redisConfig from './redis/redis.config';
 export class AppModule implements NestModule {
   //constructor(private readonly connection: Connection) {}
   configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(VerifyMiddleware)
+      .exclude(
+        {
+          path: 'user/login',
+          method: RequestMethod.POST,
+        },
+        {
+          path: 'user/register',
+          method: RequestMethod.POST,
+        },
+      )
+      .forRoutes({ path: '*', method: RequestMethod.ALL });
     consumer
       .apply(LoggerMiddleware)
       .exclude({ path: 'user', method: RequestMethod.GET })

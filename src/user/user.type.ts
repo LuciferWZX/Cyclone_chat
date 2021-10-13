@@ -1,4 +1,4 @@
-import { RegisterType } from '../interfaces/enum';
+import { LoginType, RegisterType } from '../interfaces/enum';
 
 export interface UserRegister {
   type: RegisterType;
@@ -8,4 +8,12 @@ export interface UserRegister {
   msgVerify: string;
   nickname: string;
   username: string;
+}
+export interface UserLogin {
+  type: LoginType;
+  phone: string;
+  email: string;
+  username: string;
+  password: string;
+  verifyCode: string;
 }
